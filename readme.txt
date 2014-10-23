@@ -7,7 +7,7 @@ cart, 3dcart, 3dcart wordpress, 3dcart for
 
 WordPress, 3dcart online products
 Requires at least: 2.8
-Tested up to: 3.2
+Tested up to: 3.8
 Stable tag: 1
 
 This wordpress plugin is created for merchants who want to sell products from their 3dcart Online Store within their Wordpress blog .

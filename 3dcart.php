@@ -4,7 +4,7 @@
   Plugin URI: http://wordpress.org/extend/plugins/3dcart-wp-online-store/
   Description: This is an official plugin of 3DCart, to fetch products from your shop and display it in widget.
   Author: 3dcart
-  Version: V.1.1
+  Version: V.2.1
   Author URI: http://3dcart.com
  */
 $application_registered = "";
@@ -175,18 +175,20 @@ class W_3dCartProduct_Widget extends WP_Widget {
 			$url .= '&catid=' . $catid;
 		  }
 
-		  $xmlData = $this->getXMLFromURL($url);
+		$xmlData = $this->getXMLFromURL($url);
 
-		  $arrayXML = xml2array($xmlData);
+		$arrayXML = simplexml_load_string($xmlData, null, LIBXML_NOCDATA);//xml2array($xmlData);
 
-		  $array = $arrayXML['rss']['channel']['item'];
-		  echo "<div class='w3dcart-product-" . $cssstyle . "'>";
-		  foreach ($array as $key => $value) {
-			echo "<div class='w3dcart-products-item'>";
-			echo $value['description'];
-			echo "</div>";
-		  }
-		  echo "</div>";
+		//$array = $arrayXML['rss']['channel']['item'];
+
+		echo "<div class='w3dcart-product-" . $cssstyle . "'>";
+		foreach ($arrayXML->channel->item as $key => $value) {
+		            echo "<div class='w3dcart-products-item'>";
+		            echo $value->description;//['description'];
+		            echo "</div>";
+		}
+		echo "</div>";
+
 	    } else {
 		  echo 'Store settings mismatch';
 	    }
